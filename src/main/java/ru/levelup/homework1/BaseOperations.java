@@ -36,6 +36,7 @@ public class BaseOperations {
         }
         System.out.println("-----------------Конец списка------------------------\n");
     }
+
     static void sortingSet(Collection<Employee> employees) {
         System.out.println("Отсортированное множество (Стаж по убыванию)");
 
@@ -60,5 +61,17 @@ public class BaseOperations {
            keyboardInput();
        }
         return workAgeWithScanner;
+    }
+
+    static Set<Employee> union(Set<Employee> set1, Set<Employee> set2){
+        System.out.println("Вывод объединенного множества");
+        set1.addAll(Set.copyOf(set2));
+        return set1;
+    }
+
+    static Set<Employee> intersect(Set<Employee> set1, Set<Employee> set2){
+        System.out.println("Вывод пересечения двух множеств");
+        set1.retainAll(set2);
+    return set1;
     }
 }
