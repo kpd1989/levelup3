@@ -6,14 +6,14 @@ public class BaseOperations {
     // Cтатический метод печати в консоль имен тех рабочих,
     // которые имеют указанный стаж работы
     static void printEmployee(Collection<Employee> employees, int workAge) {
-        boolean printed = true;
+        boolean printed = false;
         for (Employee employee : employees) {
             if (employee.getWorkAge() == workAge) {
                 System.out.println(employee);
-                printed = false;
+                printed = true;
             }
         }
-        if (printed) {
+        if (!printed) {
             System.out.println("Сотрудники со стажем " + workAge + " отсутствуют");
         }
         System.out.println("-----------Конец выборки-----------\n");
@@ -51,27 +51,27 @@ public class BaseOperations {
 
     static int keyboardInput() {
         Scanner scanner = new Scanner(System.in);
-        int workAgeWithScanner=0;
+        int workAgeWithScanner = 0;
         System.out.println("Введите требуемый стаж работы сотрудника (0 - 10):");
 
-       try{
-           workAgeWithScanner= scanner.nextInt();
-       } catch (Exception e) {
-           System.out.println("Введите число!");
-           keyboardInput();
-       }
+        try {
+            workAgeWithScanner = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Введите число!");
+            keyboardInput();
+        }
         return workAgeWithScanner;
     }
 
-    static Set<Employee> union(Set<Employee> set1, Set<Employee> set2){
+    static Set<Employee> union(Set<Employee> set1, Set<Employee> set2) {
         System.out.println("Вывод объединенного множества");
         set1.addAll(Set.copyOf(set2));
         return set1;
     }
 
-    static Set<Employee> intersect(Set<Employee> set1, Set<Employee> set2){
+    static Set<Employee> intersect(Set<Employee> set1, Set<Employee> set2) {
         System.out.println("Вывод пересечения двух множеств");
         set1.retainAll(set2);
-    return set1;
+        return set1;
     }
 }
