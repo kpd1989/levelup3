@@ -72,14 +72,14 @@ public class WorkAtStream {
                                         .chars()
                                         .map(Character::getNumericValue)
                                         .sum()
-                                ,(a, b) -> a));
+                                , (a, b) -> a));
 
         /*return intList.stream()
                 .collect(Collectors
                         .toMap(Function.identity(),
-                                value -> String.valueOf(value)
+                                value -> Integer.toString(value)
                                         .chars()
-                                        .map(Character::getNumericValue)
+                                        .boxed().mapToInt((c) -> c - '0')
                                         .sum()
                                 ,(a, b) -> a));*/
 
