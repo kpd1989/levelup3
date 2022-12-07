@@ -2,6 +2,7 @@ package ru.levelup.homework3;
 
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -10,15 +11,26 @@ public class WorkAtStream {
 
     public static void main(String[] args) {
 
-        List<Integer> integerList = new Random().ints(1000, 0, Integer.MAX_VALUE)
+        List<Integer> integerList = new Random().ints(1000, 0, 1_000_000)
                 .boxed()
                 .toList();
         System.out.println(integerList);
+        System.out.println("-------------------");
+
         printMax(integerList);
+        System.out.println("-------------------");
+
         printMin(integerList);
+        System.out.println("-------------------");
+
         printAverage(integerList);
+        System.out.println("-------------------");
+
         printSum(integerList);
-        convertToMap(integerList);
+        System.out.println("-------------------");
+
+        System.out.println("число = сумма элементов числа \n"
+                + convertToMap(integerList));
     }
 
     private static void printMax(List<Integer> intList) {
@@ -52,18 +64,36 @@ public class WorkAtStream {
                 .sum());
     }
 
-    private static void convertToMap(List<Integer> words) {
-        Map<Integer, Integer> result = new HashMap<>(words.size());
-        for (Integer word: words) {
-            int sum=0;
-            int x=word;
-            while(x != 0){
-                sum += (x % 10);
-                x/=10;
-            }
-            result.put(word, sum);
+    private static Map<Integer, Integer> convertToMap(List<Integer> intList) {
+        return intList.stream()
+                .collect(Collectors
+                        .toMap(Function.identity(),
+                                value -> String.valueOf(value)
+                                        .chars()
+                                        .map(Character::getNumericValue)
+                                        .sum()
+                                ,(a, b) -> a));
 
+        /*return intList.stream()
+                .collect(Collectors
+                        .toMap(Function.identity(),
+                                value -> String.valueOf(value)
+                                        .chars()
+                                        .map(Character::getNumericValue)
+                                        .sum()
+                                ,(a, b) -> a));*/
+
+// Вариант для void
+       /* Map<Integer, Integer> result = new HashMap<>(intList.size());
+        for (Integer value : intList) {
+            int sum = 0;
+            int x = value;
+            while (x != 0) {
+                sum += (x % 10);
+                x /= 10;
+            }
+            result2.put(value, sum);
         }
-        System.out.println(result);
+        System.out.println("число = сумма элементов числа \n" + result);*/
     }
 }
