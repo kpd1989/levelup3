@@ -5,9 +5,9 @@ import ru.levelup.homework4.Converter;
 
 @Component
 public class ConverterBean {
-    private final Converter converter;
+    private static Converter converter;
 
-    public ConverterBean(Converter celciusToFahrenheit) {
+    private ConverterBean(Converter celciusToFahrenheit) {
         this.converter = celciusToFahrenheit;
     }
     public void convert(double value){
