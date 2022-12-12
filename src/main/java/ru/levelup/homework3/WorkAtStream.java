@@ -14,7 +14,7 @@ public class WorkAtStream {
         List<Integer> integerList = new Random().ints(1000, 0, 1_000_000)
                 .boxed()
                 .toList();
-        System.out.println(integerList);
+        System.out.println("Полный список " + integerList);
         System.out.println("-------------------");
 
         printMax(integerList);
@@ -52,9 +52,6 @@ public class WorkAtStream {
     private static void printAverage(List<Integer> intList) {
         System.out.println("Среднее: " + intList.stream()
                 .collect(Collectors.averagingInt(Integer::intValue)));
-//        System.out.println("Среднее: " + intList.stream()
-//                .mapToInt(Integer::intValue)
-//                .average().getAsDouble());
     }
 
     private static void printSum(List<Integer> intList) {
@@ -73,27 +70,5 @@ public class WorkAtStream {
                                         .map(Character::getNumericValue)
                                         .sum()
                                 , (a, b) -> a));
-
-        /*return intList.stream()
-                .collect(Collectors
-                        .toMap(Function.identity(),
-                                value -> Integer.toString(value)
-                                        .chars()
-                                        .boxed().mapToInt((c) -> c - '0')
-                                        .sum()
-                                ,(a, b) -> a));*/
-
-// Вариант для void
-       /* Map<Integer, Integer> result = new HashMap<>(intList.size());
-        for (Integer value : intList) {
-            int sum = 0;
-            int x = value;
-            while (x != 0) {
-                sum += (x % 10);
-                x /= 10;
-            }
-            result2.put(value, sum);
-        }
-        System.out.println("число = сумма элементов числа \n" + result);*/
     }
 }
