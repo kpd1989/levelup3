@@ -1,7 +1,6 @@
 package ru.levelup.homework5.impl;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.levelup.homework5.StorageSystem;
 

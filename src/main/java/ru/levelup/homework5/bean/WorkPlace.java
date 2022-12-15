@@ -16,9 +16,7 @@ public class WorkPlace {
 
     public void start() {
         System.out.println("Введите число (для выхода '0')");
-
         storageSystem.getElement(keypadReader.getNumber());
-
         start();
     }
 }
