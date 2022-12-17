@@ -7,17 +7,23 @@ import java.util.Scanner;
 
 @Component
 public class KeypadReader {
-   private final Scanner scanner = new Scanner(System.in);
+    int value;
+    private final Scanner scanner = new Scanner(System.in);
 
     public int getNumber() {
-        int value=0;
-        try{
-            value = scanner.nextInt();
-        } catch (InputMismatchException ex){
-            System.out.println("Фибоначчи - это про цифры. Досвидания!");
+        String result = scanner.nextLine();
+
+        if (result.equals("exit") || result.equals("quit") || result.equals("0")) {
+            System.exit(1);
         }
 
-        if( value==0 ) System.exit(1);
+        try {
+            value = Integer.parseInt(result);
+        } catch (NumberFormatException ex) {
+            System.out.println("Не допустимый символ. Повторим.");
+            getNumber();
+        }
+
         return value;
     }
 }

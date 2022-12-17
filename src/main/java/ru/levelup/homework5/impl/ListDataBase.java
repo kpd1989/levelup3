@@ -4,15 +4,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import ru.levelup.homework5.StorageSystem;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @Service
 @ConditionalOnProperty(name = "application.cash.enable", havingValue = "true")
 public class ListDataBase implements StorageSystem {
-    private static ArrayList<Integer> listBase;
+    private static List<Integer> listBase;
 
-    public ListDataBase(ArrayList<Integer> listBase) {
+    public ListDataBase(List<Integer> listBase) {
         listBase.add(0);
         listBase.add(1);
         ListDataBase.listBase = listBase;

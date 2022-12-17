@@ -6,7 +6,7 @@ import ru.levelup.homework5.StorageSystem;
 
 @Service
 @ConditionalOnProperty(name = "application.cash.enable", havingValue = "false", matchIfMissing = true)
-public class nullDataBase implements StorageSystem {
+public class NullDataBase implements StorageSystem {
 
     @Override
     public void addElement(int value) {
@@ -16,10 +16,10 @@ public class nullDataBase implements StorageSystem {
     public void getElement(int value) {
         int result;
         if (value <= 1) {
-            result= 0;
+            result = 0;
         } else if (value == 2) {
-            result= 1;
-        } else  {
+            result = 1;
+        } else {
             result = (value - 1) + (value - 2);
         }
         System.out.println(value + "-й элемент последовательности =" + result
