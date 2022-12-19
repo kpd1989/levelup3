@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.levelup.homework6.dao.CityDao;
 import ru.levelup.homework6.model.City;
@@ -27,21 +26,20 @@ public class CityDaoImpl implements CityDao {
                     rs.getString("ruCityName"),
                     rs.getString("engCityName"),
                     rs.getInt("population"));
+
     @Override
     public List<City> findAll() {
-        //language=SQL
-        final String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c,engCityName, c.population FROM city c";
+        final String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c.engCityName, c.population FROM city c";
         return jdbcOperations.query(sql, cityRowMapper);
     }
 
     @Override
     public Optional<City> getById(int codeCity) {
-        String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c,engCityName, c.population FROM city c" +
+        String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c.engCityName, c.population FROM city c" +
                 "where c.codeCity = :codeCity";
         try {
-            return Optional.of(jdbcOperations.queryForObject(sql,
-                    Map.of("codeCity",codeCity), cityRowMapper));
-        } catch (Exception ex){
+            return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("codeCity", codeCity), cityRowMapper));
+        } catch (Exception ex) {
             return Optional.empty();
         }
     }
@@ -75,6 +73,6 @@ public class CityDaoImpl implements CityDao {
     @Override
     public void deleteById(int codeCity) {
         String sqlQuery = "delete from city c where c.codeCity = :codeCity";
-        jdbcOperations.update(sqlQuery, Map.of("cityCode",codeCity));
+        jdbcOperations.update(sqlQuery, Map.of("codeCity", codeCity));
     }
 }
