@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Primary
 public class CityDaoImpl implements CityDao {
 
     private final NamedParameterJdbcOperations jdbcOperations;
