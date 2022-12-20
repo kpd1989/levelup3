@@ -15,7 +15,7 @@ public class AppRunner {
         ConfigurableApplicationContext context = SpringApplication.run(AppRunner.class, args);
         CityDao cityDao = context.getBean(CityDao.class);
         //  cityDao.create(new City(3812, "Омск", "Omsk", 1125695, null));
-      //  cityDao.create(new City(8, "блабла", "BlaBla", 115,55));
+        //  cityDao.create(new City(8, "блабла", "BlaBla", 115,55));
         System.out.println(cityDao.findAll());
 
         System.out.println("------------del");

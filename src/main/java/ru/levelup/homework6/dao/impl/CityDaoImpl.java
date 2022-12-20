@@ -22,7 +22,7 @@ public class CityDaoImpl implements CityDao {
     private final NamedParameterJdbcOperations jdbcOperations;
     private final RowMapper<City> cityRowMapper;
 
-    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations/*, RegionDao regionDao*/) {
+    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations, RegionDao regionDao) {
         this.jdbcOperations = jdbcOperations;
         this.cityRowMapper = (rs, row) -> {
             final City city = new City();
@@ -30,8 +30,9 @@ public class CityDaoImpl implements CityDao {
             city.setRuCityName(rs.getString("ru_city_name"));
             city.setEngCityName(rs.getString("eng_city_name"));
             city.setPopulation(rs.getInt("population"));
-            city.setPopulation(rs.getInt("region_id"));
-            // Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
+            //Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
+            city.setRegionId(rs.getInt("region_id"));
+            //city.setPopulation(region);
             return city;
         };
     }
@@ -45,7 +46,7 @@ public class CityDaoImpl implements CityDao {
     @Override
     public Optional<City> getById(int cityId) {
         //language=SQL
-        String sql = "SELECT c.id, c.ru_city_name, c.eng_city_name, c.population, c.region_id FROM city c " +
+        String sql = "SELECT * FROM city c " +
                 "where c.id = :cityId";
         try {
             return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("cityId", cityId), cityRowMapper));
