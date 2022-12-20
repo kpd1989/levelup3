@@ -15,7 +15,7 @@ public class AppRunner {
         ConfigurableApplicationContext context = SpringApplication.run(AppRunner.class, args);
         CityDao cityDao = context.getBean(CityDao.class);
         //  cityDao.create(new City(3812, "Омск", "Omsk", 1125695, null));
-        //cityDao.create(new City(3, "блабла", "BlaBla", 115,525));
+      //  cityDao.create(new City(8, "блабла", "BlaBla", 115,55));
         System.out.println(cityDao.findAll());
 
         System.out.println("------------del");
@@ -29,7 +29,7 @@ public class AppRunner {
         RegionDao regionDao = context.getBean(RegionDao.class);
         //   regionDao.create(new Region(55, "Omsk region"));
         System.out.println(regionDao.findAll());
-
+        System.out.println(regionDao.getById(24));
     }
 
 }

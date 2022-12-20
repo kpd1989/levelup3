@@ -30,7 +30,8 @@ public class RegionDaoImpl implements RegionDao {
 
     @Override
     public Optional<Region> getById(int regionId) {
-        String sql = "SELECT r.id, r.name FROM region r" +
+        //language=SQL
+        String sql = "SELECT r.id, r.name FROM region r " +
                 "where r.id = :regionId";
         try {
             return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("regionId", regionId), regionRowMapper));

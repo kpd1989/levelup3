@@ -26,15 +26,16 @@ public class CityDaoImpl implements CityDao {
         this.jdbcOperations = jdbcOperations;
         this.cityRowMapper = (rs, row) -> {
             final City city = new City();
-            city.setId(rs.wasNull() ? null :rs.getInt("id"));
+            city.setId(rs.wasNull() ? null : rs.getInt("id"));
             city.setRuCityName(rs.getString("ru_city_name"));
             city.setEngCityName(rs.getString("eng_city_name"));
             city.setPopulation(rs.getInt("population"));
             city.setPopulation(rs.getInt("region_id"));
-           // Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
+            // Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
             return city;
         };
     }
+
     @Override
     public List<City> findAll() {
         final String sql = "SELECT * FROM city c";
@@ -43,7 +44,8 @@ public class CityDaoImpl implements CityDao {
 
     @Override
     public Optional<City> getById(int cityId) {
-        String sql = "SELECT c.id, c.ru_city_name, c.eng_city_name, c.population, c.region_id FROM city c" +
+        //language=SQL
+        String sql = "SELECT c.id, c.ru_city_name, c.eng_city_name, c.population, c.region_id FROM city c " +
                 "where c.id = :cityId";
         try {
             return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("cityId", cityId), cityRowMapper));
@@ -76,7 +78,7 @@ public class CityDaoImpl implements CityDao {
                 "ruCityName", city.getRuCityName(),
                 "engCityName", city.getEngCityName(),
                 "population", city.getPopulation(),
-                "region_id",city.getRegionId()));
+                "region_id", city.getRegionId()));
     }
 
     @Override
