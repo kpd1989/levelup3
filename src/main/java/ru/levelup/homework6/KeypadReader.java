@@ -1,46 +1,50 @@
 package ru.levelup.homework6;
 
-import org.springframework.stereotype.Component;
+import ru.levelup.homework6.model.City;
 
 import java.util.Scanner;
 
-@Component
 public class KeypadReader {
-    private int value;
-    private String line;
 
-    public int getNumber() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            line = scanner.nextLine();
-            exitRequestCheck();
-            value = Integer.parseInt(line);
-        } catch (Exception ex) {
-            System.out.println("Не допустимый символ. Повторим.");
-            getNumber();
-        }
-        return value;
+    public static City getCity(){
+        System.out.println("Введите код города");
+        int id = getNumber();
+        System.out.println("Название города на русском");
+        String ruName = getString();
+        System.out.println("Название города на английском");
+        String engName = getString();
+        System.out.println("Население");
+        int population = getNumber();
+        System.out.println("код региона");
+        int regionId = getNumber();
+
+        return new City(id,ruName, engName, population, regionId);
     }
 
-    public String getString() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            line = scanner.nextLine();
-            exitRequestCheck();
+    public static int getNumber() {
+        Scanner scanner = new Scanner(System.in);
+        int val = 0;
+        try{
+            val = scanner.nextInt();
+    } catch (Exception ignore){
+            System.out.println("Не допустимый символ. Повторим.");
+getNumber();
+    }
+        return val;
+    }
 
-            if (!line.matches("[а-яА-Яa-zA-Z]+")) {
+    public static String getString() {
+        Scanner scanner = new Scanner(System.in);
+        String val = null;
+        try{
+           val = scanner.nextLine();
+            if (!val.matches("[а-яА-Яa-zA-Z]+")) {
                 throw new NumberFormatException();
             }
-
-        } catch (NumberFormatException ex) {
+       } catch (Exception ignore){
             System.out.println("Не допустимый символ. Повторим.");
-            getString();
-        }
-        return line;
+getString();
+       }
+        return val;
     }
-
-    private void exitRequestCheck() {
-        if (line.equals("exit") || line.equals("quit") || line.equals("0")) {
-            System.exit(1);
-        }
-    }
-
 }

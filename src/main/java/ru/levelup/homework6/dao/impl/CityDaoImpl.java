@@ -1,15 +1,11 @@
 package ru.levelup.homework6.dao.impl;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.levelup.homework6.dao.CityDao;
-import ru.levelup.homework6.dao.RegionDao;
 import ru.levelup.homework6.model.City;
-import ru.levelup.homework6.model.Region;
 
 import java.sql.Types;
 import java.util.List;
@@ -22,7 +18,7 @@ public class CityDaoImpl implements CityDao {
     private final NamedParameterJdbcOperations jdbcOperations;
     private final RowMapper<City> cityRowMapper;
 
-    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations, RegionDao regionDao) {
+    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
         this.cityRowMapper = (rs, row) -> {
             final City city = new City();
@@ -77,7 +73,7 @@ public class CityDaoImpl implements CityDao {
                 "ruCityName", city.getRuCityName(),
                 "engCityName", city.getEngCityName(),
                 "population", city.getPopulation(),
-                "region_id", city.getRegionId()));
+                "regionId", city.getRegionId()));
     }
 
     @Override
