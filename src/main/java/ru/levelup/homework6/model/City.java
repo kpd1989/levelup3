@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class City {
-    private Integer codeCity;
-    private Integer codeRegion;
+    private Integer id;
     private String ruCityName;
     private String engCityName;
     private Integer population;
+    private Integer regionId;
 }

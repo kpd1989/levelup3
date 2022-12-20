@@ -9,12 +9,12 @@ import java.util.Optional;
 public interface CityDao {
     List<City> findAll();
 
-    Optional<City> getById(int codeCity);
+    Optional<City> getById(int cityId);
 
     void create(City city);
 
     void update(City city);
 
-    void deleteById(int codeCity);
+    void deleteById(int cityId);
 
 }

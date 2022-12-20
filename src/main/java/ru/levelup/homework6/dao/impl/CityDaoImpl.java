@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.levelup.homework6.dao.CityDao;
+import ru.levelup.homework6.dao.RegionDao;
 import ru.levelup.homework6.model.City;
+import ru.levelup.homework6.model.Region;
 
 import java.sql.Types;
 import java.util.List;
@@ -15,29 +17,36 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
 public class CityDaoImpl implements CityDao {
 
     private final NamedParameterJdbcOperations jdbcOperations;
-    private final RowMapper<City> cityRowMapper =
-            (rs, rowNum) -> new City(rs.getInt("codeCity"),
-                    rs.getInt("codeRegion"),
-                    rs.getString("ruCityName"),
-                    rs.getString("engCityName"),
-                    rs.getInt("population"));
+    private final RowMapper<City> cityRowMapper;
 
+    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations/*, RegionDao regionDao*/) {
+        this.jdbcOperations = jdbcOperations;
+        this.cityRowMapper = (rs, row) -> {
+            final City city = new City();
+            city.setId(rs.wasNull() ? null :rs.getInt("id"));
+            city.setRuCityName(rs.getString("ru_city_name"));
+            city.setEngCityName(rs.getString("eng_city_name"));
+            city.setPopulation(rs.getInt("population"));
+            city.setPopulation(rs.getInt("region_id"));
+           // Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
+            return city;
+        };
+    }
     @Override
     public List<City> findAll() {
-        final String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c.engCityName, c.population FROM city c";
+        final String sql = "SELECT * FROM city c";
         return jdbcOperations.query(sql, cityRowMapper);
     }
 
     @Override
-    public Optional<City> getById(int codeCity) {
-        String sql = "SELECT c.codeCity, c.codeRegion, c.ruCityName, c.engCityName, c.population FROM city c" +
-                "where c.codeCity = :codeCity";
+    public Optional<City> getById(int cityId) {
+        String sql = "SELECT c.id, c.ru_city_name, c.eng_city_name, c.population, c.region_id FROM city c" +
+                "where c.id = :cityId";
         try {
-            return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("codeCity", codeCity), cityRowMapper));
+            return Optional.ofNullable(jdbcOperations.queryForObject(sql, Map.of("cityId", cityId), cityRowMapper));
         } catch (Exception ex) {
             return Optional.empty();
         }
@@ -45,33 +54,34 @@ public class CityDaoImpl implements CityDao {
 
     @Override
     public void create(City city) {
-        final String sqlQuery = "insert into city (codeCity, codeRegion, ruCityName, engCityName, population) " +
-                "values (:codeCity, :codeRegion, :ruCityName, :engCityName, :population)";
+        final String sqlQuery = "insert into city (id,  ru_city_name, eng_city_name, population, region_id) " +
+                "values (:id, :ruCityName, :engCityName, :population, :regionId)";
         MapSqlParameterSource namedParametrs = new MapSqlParameterSource();
-        final Integer codeCity = city.getCodeCity();
-        namedParametrs.addValue("codeCity", codeCity, Types.INTEGER);
-        namedParametrs.addValue("codeRegion", city.getCodeRegion(), Types.INTEGER);
+
+        final Integer id = city.getId();
+        namedParametrs.addValue("id", id, Types.INTEGER);
         namedParametrs.addValue("ruCityName", city.getRuCityName(), Types.VARCHAR);
         namedParametrs.addValue("engCityName", city.getEngCityName(), Types.VARCHAR);
         namedParametrs.addValue("population", city.getPopulation(), Types.INTEGER);
+        namedParametrs.addValue("regionId", city.getRegionId(), Types.INTEGER);
         jdbcOperations.update(sqlQuery, namedParametrs);
     }
 
     @Override
     public void update(City city) {
-        final String sqlQuery = "update city set codeRegion = :codeRegion, ruCityName = :ruCityName, engCityName = :engCityName, population = :population" +
-                "where cityCode = :cityCode";
+        final String sqlQuery = "update city set ru_city_name = :ruCityName, eng_city_name = :engCityName, population = :population, region_id = :regionId" +
+                "where id = :cityId";
         jdbcOperations.update(sqlQuery, Map.of(
-                "codeCity", city.getCodeCity(),
-                "codeRegion", city.getCodeRegion(),
+                "CityId", city.getId(),
                 "ruCityName", city.getRuCityName(),
                 "engCityName", city.getEngCityName(),
-                "population", city.getPopulation()));
+                "population", city.getPopulation(),
+                "region_id",city.getRegionId()));
     }
 
     @Override
-    public void deleteById(int codeCity) {
-        String sqlQuery = "delete from city c where c.codeCity = :codeCity";
-        jdbcOperations.update(sqlQuery, Map.of("codeCity", codeCity));
+    public void deleteById(int cityId) {
+        String sqlQuery = "delete from city c where c.id = :cityId";
+        jdbcOperations.update(sqlQuery, Map.of("cityId", cityId));
     }
 }
