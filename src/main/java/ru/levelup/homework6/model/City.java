@@ -4,6 +4,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class City {
     private Integer id;
@@ -13,7 +14,6 @@ public class City {
     private Integer population;
 
     private Integer regionId;
-    //private Region region;
 
     public City(Integer id, String ruCityName, String engCityName, Integer population, Integer regionId) {
         this.id = id;
