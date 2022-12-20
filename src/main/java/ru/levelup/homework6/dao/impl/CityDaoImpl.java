@@ -30,9 +30,7 @@ public class CityDaoImpl implements CityDao {
             city.setRuCityName(rs.getString("ru_city_name"));
             city.setEngCityName(rs.getString("eng_city_name"));
             city.setPopulation(rs.getInt("population"));
-            //Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
             city.setRegionId(rs.getInt("region_id"));
-            //city.setPopulation(region);
             return city;
         };
     }
