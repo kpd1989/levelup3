@@ -10,6 +10,11 @@ spring:
     password: password
     driverClassName: com.mysql.cj.jdbc.Driver
 
+  #hw7
+  liquibase:
+    change-log: 'classpath:db/migration/changeLog.xml'
+    enabled: true
+
 #hw-5
 application:
   cash:
