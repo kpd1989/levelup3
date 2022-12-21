@@ -6,7 +6,7 @@
 
 
     <changeSet author="Pavel Korobko" id="Create-table-region">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="region"/>
             </not>
