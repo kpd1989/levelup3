@@ -21,7 +21,6 @@ public class RegionDaoImpl implements RegionDao {
             (rs, rowNum) -> new Region(rs.getInt("id"),
                     rs.getString("name"));
 
-
     @Override
     public List<Region> findAll() {
         final String sql = "SELECT r.id, r.name FROM region r";
