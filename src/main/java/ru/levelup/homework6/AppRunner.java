@@ -14,8 +14,8 @@ public class AppRunner {
         CityDao cityDao = context.getBean(CityDao.class);
         RegionDao regionDao = context.getBean(RegionDao.class);
         CreatorEntityToTable creatorEntityToTable = context.getBean(CreatorEntityToTable.class);
-        creatorEntityToTable.getCity();
-        creatorEntityToTable.getRegion();
+        creatorEntityToTable.createCity();
+        creatorEntityToTable.createRegion();
 
         System.out.println(regionDao.findAll());
         System.out.println(cityDao.findAll());

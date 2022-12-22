@@ -15,7 +15,7 @@ public class CreatorEntityToTable {
     CityDao cityDao;
     RegionDao regionDao;
 
-    public void getCity(){
+    public void createCity() {
         System.out.println("Введите код города");
         int id = keypadReader.getNumber();
         System.out.println("Название города на русском");
@@ -27,29 +27,29 @@ public class CreatorEntityToTable {
         System.out.println("код региона");
         int regionId = keypadReader.getNumber();
         Region region = regionDao.getById(regionId).orElse(null);
-        cityDao.create(new City(id,ruName, engName, population, region));
+        cityDao.create(new City(id, ruName, engName, population, region));
 
-        exitRequrs();
-        getCity();
+        System.out.println("Достаточно? Для выхода наберите 'q'");
+        String answer = keypadReader.getString();
+        if (answer.equals("q")) {
+            return;
+        }
+        createCity();
     }
 
-    public void getRegion(){
+    public void createRegion() {
         System.out.println("Введите код города");
         int id = keypadReader.getNumber();
         System.out.println("Название города на русском");
         String name = keypadReader.getString();
 
         regionDao.create(new Region(id, name));
-        exitRequrs();
-        getRegion();
-    }
 
-    private void exitRequrs(){
         System.out.println("Достаточно? Для выхода наберите 'q'");
         String answer = keypadReader.getString();
         if (answer.equals("q")) {
             return;
         }
+        createRegion();
     }
-
 }
