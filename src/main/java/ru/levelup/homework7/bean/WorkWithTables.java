@@ -16,7 +16,7 @@ public class WorkWithTables {
     CityServiceImpl cityService;
     InputService inputService;
 
-    public void addRegion(){
+    public void addRegion() {
         System.out.println("Введите код региона");
         int id = inputService.getUserNumber();
         System.out.println("Введите наименование региона");
@@ -31,7 +31,7 @@ public class WorkWithTables {
         addRegion();
     }
 
-    public void addCity(){
+    public void addCity() {
         System.out.println("Введите код города");
         int id = inputService.getUserNumber();
         System.out.println("Введите название города на русском");
