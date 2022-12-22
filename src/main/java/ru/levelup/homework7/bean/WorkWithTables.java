@@ -23,8 +23,11 @@ public class WorkWithTables {
         String name = inputService.getUserString();
         regionService.create(new Region(id, name));
 
-
-        exitFromRecursion();
+        System.out.println("Достаточно? для выхода введите 'exit'");
+        String answer = inputService.getUserString();
+        if (answer.equals("exit")) {
+            return;
+        }
         addRegion();
     }
 
@@ -44,15 +47,11 @@ public class WorkWithTables {
         cityService.create(new City(id, ruName, engName, population, region));
         addCity();
 
-        exitFromRecursion();
-        addCity();
-    }
-
-    void exitFromRecursion(){
         System.out.println("Достаточно? для выхода введите 'exit'");
         String answer = inputService.getUserString();
         if (answer.equals("exit")) {
             return;
         }
+        addCity();
     }
 }

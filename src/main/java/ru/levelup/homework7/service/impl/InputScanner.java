@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 @Service
 public class InputScanner implements InputService {
-    Scanner scanner = new Scanner(System.in);
+
 
     @Override
     public String getUserString() {
+        Scanner scanner = new Scanner(System.in);
         String line = null;
         try{
             line = scanner.nextLine();
@@ -26,6 +27,7 @@ public class InputScanner implements InputService {
 
     @Override
     public int getUserNumber() {
+        Scanner scanner = new Scanner(System.in);
         int number = 0;
         try{
             number = scanner.nextInt();
