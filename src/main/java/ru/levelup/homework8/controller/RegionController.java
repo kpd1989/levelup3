@@ -14,7 +14,7 @@ public class RegionController {
 
     @GetMapping("/region/add")
     public Region create(int id, String name) {
-        Region region = new Region(id,name);
+        Region region = new Region(id, name);
         regionService.create(region);
         return region;
     }
