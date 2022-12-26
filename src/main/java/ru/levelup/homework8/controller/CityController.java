@@ -1,7 +1,9 @@
 package ru.levelup.homework8.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.levelup.homework8.entity.City;
 import ru.levelup.homework8.entity.Region;
@@ -16,7 +18,14 @@ public class CityController {
     private final RegionService regionService;
 
 
-    @GetMapping("/city/add")
+    @GetMapping("/city")
+    public String cityApp() {
+        return "/add \n id, ruName, engName, population, region_id \n\n" +
+                "/find_by_id \n id \n\n" +
+                "/delete \n id";
+    }
+
+    @PostMapping("/city/add")
     public City create(int id, String ruName, String engName, int population, int region_id) {
         Region region = regionService.findById(region_id);
         City city = new City(id, ruName, engName, population, region);
@@ -29,7 +38,7 @@ public class CityController {
         return cityService.findById(id);
     }
 
-    @GetMapping("/city/delete")
+    @DeleteMapping("/city/delete")
     public String deleteById(int id) {
         String answer;
         City city = cityService.findById(id);
