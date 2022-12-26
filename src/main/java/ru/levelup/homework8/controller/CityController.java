@@ -31,8 +31,16 @@ public class CityController {
 
     @GetMapping("/city/delete")
     public String deleteById(int id) {
+        String answer;
         City city = cityService.findById(id);
         cityService.deleteById(id);
-        return city + " - удален.";
+
+        if (city==null){
+            answer = "Объект для удаления отсутствует";
+        } else {
+            answer = city + " - удален.";
+        }
+
+        return answer;
     }
 }

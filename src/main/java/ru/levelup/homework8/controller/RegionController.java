@@ -26,8 +26,15 @@ public class RegionController {
 
     @GetMapping("/region/delete")
     public String deleteById(int id) {
+        String answer;
         Region region = regionService.findById(id);
         regionService.deleteById(id);
-        return region + " - удален.";
+        if (region == null) {
+            answer = "Объект для удаления отсутствует";
+        } else {
+            answer = region + " - удален.";
+        }
+
+        return answer;
     }
 }
