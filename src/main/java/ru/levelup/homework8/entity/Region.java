@@ -1,7 +1,6 @@
 package ru.levelup.homework8.entity;
 
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Validated
 public class Region {
     @Id
     @Min(0)

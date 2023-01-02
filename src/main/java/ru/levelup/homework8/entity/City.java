@@ -2,7 +2,6 @@ package ru.levelup.homework8.entity;
 
 
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -15,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class City {
 
     @Id
