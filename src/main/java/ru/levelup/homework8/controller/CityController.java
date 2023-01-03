@@ -1,6 +1,7 @@
 package ru.levelup.homework8.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.levelup.homework8.entity.City;
@@ -16,6 +17,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping("/city")
+    @ResponseStatus(HttpStatus.CREATED)
     public City createCity (@Valid @RequestBody City city) {
         cityService.create(city);
         return city;
@@ -27,6 +29,7 @@ public class CityController {
     }
 
     @DeleteMapping("/city/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteById(@PathVariable int id) {
         String answer;
         City city = cityService.findById(id);
