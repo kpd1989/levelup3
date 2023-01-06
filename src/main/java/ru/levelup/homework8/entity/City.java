@@ -28,7 +28,6 @@ public class City {
     private Integer population;
     @ManyToOne
     @JoinColumn(name = "region_id")
-    @NotBlank
     private Region region;
 
 }

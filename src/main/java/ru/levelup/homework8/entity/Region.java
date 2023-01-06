@@ -22,6 +22,5 @@ public class Region {
     private Integer id;
 
     @Column(name ="name")
-    @NotBlank
     private String name;
 }
