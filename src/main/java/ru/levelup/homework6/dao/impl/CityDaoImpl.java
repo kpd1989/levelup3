@@ -5,7 +5,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.levelup.homework6.dao.CityDao;
+import ru.levelup.homework6.dao.RegionDao;
 import ru.levelup.homework6.model.City;
+import ru.levelup.homework6.model.Region;
 
 import java.sql.Types;
 import java.util.List;
@@ -17,16 +19,19 @@ public class CityDaoImpl implements CityDao {
 
     private final NamedParameterJdbcOperations jdbcOperations;
     private final RowMapper<City> cityRowMapper;
+    final  RegionDao regionDao;
 
-    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations) {
+    public CityDaoImpl(NamedParameterJdbcOperations jdbcOperations, RegionDao regionDao) {
         this.jdbcOperations = jdbcOperations;
+        this.regionDao = regionDao;
         this.cityRowMapper = (rs, row) -> {
             final City city = new City();
             city.setId(rs.wasNull() ? null : rs.getInt("id"));
             city.setRuCityName(rs.getString("ru_city_name"));
             city.setEngCityName(rs.getString("eng_city_name"));
             city.setPopulation(rs.getInt("population"));
-            city.setRegionId(rs.getInt("region_id"));
+            Region region = regionDao.getById(rs.getInt("region_id")).orElse(null);
+            city.setRegion(region);
             return city;
         };
     }
@@ -60,7 +65,7 @@ public class CityDaoImpl implements CityDao {
         namedParametrs.addValue("ruCityName", city.getRuCityName(), Types.VARCHAR);
         namedParametrs.addValue("engCityName", city.getEngCityName(), Types.VARCHAR);
         namedParametrs.addValue("population", city.getPopulation(), Types.INTEGER);
-        namedParametrs.addValue("regionId", city.getRegionId(), Types.INTEGER);
+        namedParametrs.addValue("regionId", city.getRegion().getId(), Types.INTEGER);
         jdbcOperations.update(sqlQuery, namedParametrs);
     }
 
@@ -73,7 +78,7 @@ public class CityDaoImpl implements CityDao {
                 "ruCityName", city.getRuCityName(),
                 "engCityName", city.getEngCityName(),
                 "population", city.getPopulation(),
-                "regionId", city.getRegionId()));
+                "regionId", city.getRegion().getId()));
     }
 
     @Override
