@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: homeWorkLevel3
-  main:
-    banner-mode: 'OFF'
-
-application:
-  cash:
-    enable: 'true'
