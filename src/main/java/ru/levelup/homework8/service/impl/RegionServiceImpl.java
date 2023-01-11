@@ -16,8 +16,9 @@ import java.util.List;
 public class RegionServiceImpl implements RegionService {
 
     private final RegionRepository regionRepository;
+
     @Override
-    public Region findById(Integer id){
+    public Region findById(Integer id) {
         return regionRepository.findById(id).orElse(null);
     }
 

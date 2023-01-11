@@ -21,12 +21,12 @@ public class CityController {
 
     @PostMapping("/city")
     @ResponseStatus(HttpStatus.CREATED)
-    public City createCity (@Valid @RequestBody City city) {
+    public City createCity(@Valid @RequestBody City city) {
         if (city.getRuCityName().matches("\\d") || city.getEnCityName().matches("\\d")) {
             throw new IllegalArgumentException("Проверьте введенные данные");
         }
 
-        if (regionService.findById(city.getRegion().getId()) == null){
+        if (regionService.findById(city.getRegion().getId()) == null) {
             regionService.create(city.getRegion());
         }
 
@@ -47,7 +47,7 @@ public class CityController {
         City city = cityService.findById(id);
         cityService.deleteById(id);
 
-        if (city==null){
+        if (city == null) {
             answer = "Объект для удаления отсутствует";
         } else {
             answer = city + " - удален.";

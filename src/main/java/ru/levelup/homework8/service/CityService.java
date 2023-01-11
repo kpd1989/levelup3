@@ -15,5 +15,4 @@ public interface CityService {
     void update(City city);
 
 
-
 }
