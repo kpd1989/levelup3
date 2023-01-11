@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add/Edit/View city</title>
+</head>
+<body>
+<form id="add-form" th:action="@{/city/create}" th:if="${city == null}" method="post" action="city.html">
+    <p><strong>Add new city:</strong></p>
+
+    <div class="row">
+        <label for="code-input">Code:</label>
+        <input id="code-input" name="code" type="text" required="required" maxlength="5"/>
+    </div>
+
+    <div class="row">
+        <label for="name-input">Name:</label>
+        <input id="name-input" name="name" type="text" required="required" maxlength="120" />
+    </div>
+
+    <div class="row">
+        <a th:href="@{/templates/city}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <button type="submit">Save</button>
+    </div>
+</form>
+<form id="edit-form" th:action="@{/city/create(code=${city.code})}" th:unless="${city == null}" method="post"
+      action="city.html" th:object="${city}">
+    <p><strong>City Info:</strong></p>
+
+    <div class="row">
+        <label for="code-input">Code:</label>
+        <input id="code-input" type="text" th:value="*{code}" readonly="readonly" value="1"/>
+    </div>
+
+    <div class="row">
+        <label for="name-input">Name:</label>
+        <input id="name-input" name="name" type="text" th:value="*{name}" required="required" maxlength="120" value="Art"/>
+    </div>
+
+    <div class="row">
+        <a th:href="@{/templates/city}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
+    </div>
+</form>
+</body>
+</html>
