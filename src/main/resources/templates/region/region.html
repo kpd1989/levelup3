@@ -23,12 +23,12 @@
         <button type="submit">Save</button>
     </div>
 </form>
-<form id="edit-form" th:action="@{/region/save(code=${region.code})}" th:unless="${region == null}" method="post"
+<form id="edit-form" th:action="@{/region/save(id=${region.id})}" th:unless="${region == null}" method="post"
       action="region.html" th:object="${region}">
     <p><strong>Region Info:</strong></p>
 
     <div class="row">
-        <label for="id-input">Code:</label>
+        <label for="id-input">Id:</label>
         <input id="id-input" type="text" th:value="*{id}" readonly="readonly" value="1"/>
     </div>
 

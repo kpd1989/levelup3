@@ -8,9 +8,9 @@
         $(function () {
             $("a[id^='city']").click(function (event) {
                 if (confirm('Are you sure to delete this city?')) {
-                    let cityCode = $(this).attr('name').replace('city_', '');
+                    let cityId = $(this).attr('name').replace('city_', '');
                     $.ajax({
-                        url: '/cities/' + cityCode,
+                        url: '/city/' + cityId,
                         type: 'DELETE',
                         success: function (result) {
                             if (result.success) {
@@ -48,13 +48,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="genre: ${cities.data}">
+    <tr th:each="city: ${cities.data}">
         <td th:text="${city.id}">art</td>
         <td th:text="${city.name}">Art</td>
         <td>
-            <a th:href="@{/city/edit(code=${city.code})}" href="city.html"><img alt="Edit"
+            <a th:href="@{/city/edit(id=${city.id})}" href="city.html"><img alt="Edit"
                                                                                    th:src="@{/images/edit.png}"/></a>
-            <a id="delete-handler" th:id="${city.codeStr}" th:name="${city.codeStr}" href="city.html"><img
+            <a id="delete-handler" th:id="${city.idStr}" th:name="${city.idStr}" href="cit.html"><img
                     alt="Delete" th:src="@{/images/delete.png}"/></a>
         </td>
     </tr>

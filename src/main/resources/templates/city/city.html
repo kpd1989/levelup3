@@ -9,8 +9,8 @@
     <p><strong>Add new city:</strong></p>
 
     <div class="row">
-        <label for="code-input">Code:</label>
-        <input id="code-input" name="code" type="text" required="required" maxlength="5"/>
+        <label for="id-input">Id:</label>
+        <input id="id-input" name="id" type="text" required="required" maxlength="5"/>
     </div>
 
     <div class="row">
@@ -23,13 +23,13 @@
         <button type="submit">Save</button>
     </div>
 </form>
-<form id="edit-form" th:action="@{/city/create(code=${city.code})}" th:unless="${city == null}" method="post"
+<form id="edit-form" th:action="@{/city/create(id=${city.id})}" th:unless="${city == null}" method="post"
       action="city.html" th:object="${city}">
     <p><strong>City Info:</strong></p>
 
     <div class="row">
-        <label for="code-input">Code:</label>
-        <input id="code-input" type="text" th:value="*{code}" readonly="readonly" value="1"/>
+        <label for="id-input">Id:</label>
+        <input id="id-input" type="text" th:value="*{id}" readonly="readonly" value="1"/>
     </div>
 
     <div class="row">

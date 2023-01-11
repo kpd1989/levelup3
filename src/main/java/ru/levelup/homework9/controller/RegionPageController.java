@@ -41,7 +41,7 @@ public class RegionPageController {
     public String currentRegion(@RequestParam("id") Integer regionId, Model model) {
         RegionDto currentRegion = regionService.getById(regionId)
                 .orElseThrow(() -> new IllegalArgumentException("Non existed region"));
-        model.addAttribute("genre", currentRegion);
+        model.addAttribute("region", currentRegion);
         return "region/region";
     }
 

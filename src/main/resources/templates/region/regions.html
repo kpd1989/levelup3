@@ -10,7 +10,7 @@
                 if (confirm('Are you sure to delete this region?')) {
                     let regionId = $(this).attr('name').replace('region_', '');
                     $.ajax({
-                        url: '/genres/' + regionId,
+                        url: '/region/' + regionId,
                         type: 'DELETE',
                         success: function (result) {
                             if (result.success) {
@@ -47,9 +47,9 @@
         <td th:text="${region.id}">art</td>
         <td th:text="${region.name}">Art</td>
         <td>
-            <a th:href="@{/region/edit(code=${region.id})}" href="region.html"><img alt="Edit"
+            <a th:href="@{/region/edit(id=${region.id})}" href="region.html"><img alt="Edit"
                                                                                    th:src="@{/images/edit.png}"/></a>
-            <a id="delete-handler" th:id="${region.idStr}" th:name="${region.idStr}" href="region.html"><img
+            <a id="delete-handler" th:id="${region.idStr}" th:name="${region.idStr}" href="reg.html"><img
                     alt="Delete" th:src="@{/images/delete.png}"/></a>
         </td>
     </tr>
