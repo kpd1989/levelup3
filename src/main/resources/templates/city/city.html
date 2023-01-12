@@ -39,7 +39,7 @@
     </div>
 </form>
 
-<form id="edit-form" th:action="@{/city/create(id=${city.id})}" th:unless="${city == null}" method="post"
+<form id="edit-form" th:action="@{/city/save(id=${city.id})}" th:unless="${city == null}" method="post"
       action="city.html" th:object="${city}">
     <p><strong>City Info:</strong></p>
 
