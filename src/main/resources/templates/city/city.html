@@ -10,22 +10,22 @@
 
     <div class="row">
         <label for="id-input">Id:</label>
-        <input id="id-input" name="id" type="text" required="required" maxlength="5"/>
+        <input id="id-input" name="id" type="text" required="required" maxlength="5" minlength="1"/>
     </div>
 
     <div class="row">
         <label for="ruName-input">ruName:</label>
-        <input id="ruName-input" name="ruCityName" type="text" required="required" maxlength="120" />
+        <input id="ruName-input" name="ruCityName" type="text" required="required" maxlength="50" />
     </div>
 
     <div class="row">
         <label for="enName-input">engName:</label>
-        <input id="enName-input" name="enCityName" type="text" required="required" maxlength="120" />
+        <input id="enName-input" name="enCityName" type="text" required="required" maxlength="50" />
     </div>
 
     <div class="row">
         <label for="population-input">population:</label>
-        <input id="population-input" name="population" type="text" required="required" maxlength="120" />
+        <input id="population-input" name="population" type="text" required="required" maxlength="12" />
     </div>
 
     <div class="row">
@@ -34,7 +34,7 @@
     </div>
 
     <div class="row">
-        <a th:href="@{/templates/city}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <a th:href="@{/city}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
         <button type="submit">Save</button>
     </div>
 </form>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="row">
-        <a th:href="@{/templates/city}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <a th:href="@{/cities}" href="cities.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
         <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
     </div>
 </form>
