@@ -27,7 +27,7 @@
 
 
 <body>
-<p><strong>Genres:</strong></p>
+<p><strong>Cities:</strong></p>
 
 <div id="navigation">
     <a th:if="${cities.hasPrevious}" th:href="@{/templates/city(page=${cities.currentPage-1})}" href="cities.html"><img
@@ -50,7 +50,10 @@
     <tbody>
     <tr th:each="city: ${cities.data}">
         <td th:text="${city.id}">art</td>
-        <td th:text="${city.name}">Art</td>
+        <td th:text="${city.ruCityName}">Art</td>
+        <td th:text="${city.enCityName}">Art</td>
+        <td th:text="${city.population}">Art</td>
+        <td th:text="${city.region}">Art</td>
         <td>
             <a th:href="@{/city/edit(id=${city.id})}" href="city.html"><img alt="Edit"
                                                                                    th:src="@{/images/edit.png}"/></a>

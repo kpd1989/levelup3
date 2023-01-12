@@ -41,7 +41,7 @@ public class CityPageController {
     public String currenCity(@RequestParam("id") Integer cityId, Model model) {
         CityDto currentCity = cityService.getById(cityId)
                 .orElseThrow(() -> new IllegalArgumentException("Non existed city"));
-        model.addAttribute("genre", currentCity);
+        model.addAttribute("city", currentCity);
         return "city/city";
     }
 

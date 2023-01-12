@@ -48,8 +48,8 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     @Transactional
-    public RegionDto save(@Valid RegionDto genre) {
-        return regionMapper.toDto(regionRepository.save(regionMapper.toEntity(genre)));
+    public RegionDto save(@Valid RegionDto region) {
+        return regionMapper.toDto(regionRepository.save(regionMapper.toEntity(region)));
     }
 
     @Override
