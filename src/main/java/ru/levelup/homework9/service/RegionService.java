@@ -11,8 +11,12 @@ import java.util.Optional;
 
 public interface RegionService {
     List<RegionDto> findAll();
+
     RegionPageDto getPage(Pageable pageable);
+
     Optional<RegionDto> getById(@NotEmpty Integer regionId);
+
     RegionDto save(@Valid RegionDto region);
+
     void deleteById(@NotEmpty Integer regionId);
 }

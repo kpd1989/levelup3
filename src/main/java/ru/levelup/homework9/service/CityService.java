@@ -11,8 +11,12 @@ import java.util.Optional;
 
 public interface CityService {
     List<CityDto> findAll();
+
     CityPageDto getPage(Pageable pageable);
+
     Optional<CityDto> getById(@NotEmpty Integer cityId);
+
     CityDto save(@Valid CityDto city);
+
     void deleteById(@NotEmpty Integer cityId);
 }
