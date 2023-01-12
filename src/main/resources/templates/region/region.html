@@ -20,7 +20,7 @@
 
     <div class="row">
         <a th:href="@{/regions}" href="regions.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
-        <button type="submit">Save</button>
+        <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
     </div>
 </form>
 <form id="edit-form" th:action="@{/region/save(id=${region.id})}" th:unless="${region == null}" method="post"
