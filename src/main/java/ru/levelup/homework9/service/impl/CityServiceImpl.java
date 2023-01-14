@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.levelup.homework9.dto.CityDto;
 import ru.levelup.homework9.dto.CityPageDto;
 import ru.levelup.homework9.mapper.CityMapper;
+import ru.levelup.homework9.mapper.RegionMapper;
 import ru.levelup.homework9.model.City;
 import ru.levelup.homework9.repository.CityRepository;
+import ru.levelup.homework9.repository.RegionRepository;
 import ru.levelup.homework9.service.CityService;
 
 import javax.validation.Valid;
@@ -23,7 +25,8 @@ public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
     private final CityMapper cityMapper;
-
+    private final RegionRepository regionRepository;
+    private final RegionMapper regionMapper;
     @Override
     @Transactional(readOnly = true)
     public List<CityDto> findAll() {
@@ -49,6 +52,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public CityDto save(@Valid CityDto city) {
+        regionMapper.toDto(regionRepository.save(regionMapper.toEntity(city.getRegion())));
         return cityMapper.toDto(cityRepository.save(cityMapper.toEntity(city)));
     }
 
