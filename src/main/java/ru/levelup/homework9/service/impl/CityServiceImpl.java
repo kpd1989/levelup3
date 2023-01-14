@@ -27,6 +27,7 @@ public class CityServiceImpl implements CityService {
     private final CityMapper cityMapper;
     private final RegionRepository regionRepository;
     private final RegionMapper regionMapper;
+
     @Override
     @Transactional(readOnly = true)
     public List<CityDto> findAll() {
