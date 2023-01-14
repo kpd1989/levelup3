@@ -1,7 +1,6 @@
 package ru.levelup.homework9.dto;
 
 import lombok.Data;
-import ru.levelup.homework7.entity.Region;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,7 +26,7 @@ public class CityDto {
     private Integer population;
 
     @NotNull
-    private Region region;
+    private RegionDto region;
 
     public String getIdStr() {
         return String.format("city_%s", id);

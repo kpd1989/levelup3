@@ -29,8 +29,13 @@
     </div>
 
     <div class="row">
-        <label for="region-input">region:</label>
-        <input id="region-input" name="region" type="text" required="required" maxlength="120"/>
+        <label for="regionI-input">regionId:</label>
+        <input id="regionI-input" name="city.region.id" type="text" required="required" maxlength="120"/>
+    </div>
+
+    <div class="row">
+        <label for="regionN-input">regionName:</label>
+        <input id="regionN-input" name="city.region.name" type="text" required="required" maxlength="120"/>
     </div>
 
     <div class="row">
@@ -67,8 +72,14 @@
     </div>
 
     <div class="row">
-        <label for="region-input">region:</label>
-        <input id="region-input" name="region" type="text" th:value="*{region}" required="required" maxlength="50"
+        <label for="region-id-input">regionId:</label>
+        <input id="region-id-input" name="region" type="text" th:value="*{region.id}" required="required" maxlength="50"
+               value="Art"/>
+    </div>
+
+    <div class="row">
+        <label for="region-name-input">regionName:</label>
+        <input id="region-name-input" name="region" type="text" th:value="*{region.name}" required="required" maxlength="50"
                value="Art"/>
     </div>
 
