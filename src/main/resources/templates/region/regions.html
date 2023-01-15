@@ -25,7 +25,7 @@
     </script>
 </head>
 <body>
-<p><strong>Regions:</strong></p>
+<p><strong><span th:text="#{regions}"></span>:</strong></p>
 
 <div id="navigation">
     <a th:if="${regions.hasPrevious}" th:href="@{/regions(page=${regions.currentPage-1})}" href="regions.html"><img
