@@ -5,9 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.levelup.homework9.dto.CityPageDto;
-import ru.levelup.homework9.security.Authorities;
-import ru.levelup.homework9.service.CityService;
+import ru.levelup.homework10.dto.CityPageDto;
+import ru.levelup.homework10.security.Authorities;
+import ru.levelup.homework10.service.CityService;
 
 @RestController
 @RequiredArgsConstructor

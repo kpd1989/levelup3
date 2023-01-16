@@ -40,8 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(
-                        "/cities", "/regions", "/api/**").authenticated()
-                .antMatchers("/city/**", "/api/cities/*", "/region/**", "/api/regions/*" )
+                        "/cities", "/regions",
+                        "/api/**").authenticated()
+                .antMatchers("/city/**", "/api/cities/*", "/region/**", "/api/regions/*")
                     .hasAuthority(ADMIN)
                 .and()
                 .formLogin()

@@ -1,41 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>List of all cities</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function () {
-            $("a[id^='city']").click(function (event) {
-                if (confirm('Are you sure to delete this city?')) {
-                    let cityId = $(this).attr('name').replace('city_', '');
-                    $.ajax({
-                        url: '/city/' + cityId,
-                        type: 'DELETE',
-                        success: function (result) {
-                            if (result.success) {
-                                location.href = '/cities';
-                            }
+            fillData();
+        });
+
+        function fillData(page) {
+            $.get('/api/cities' + (page ? '?page=' + page : ''), function (result) {
+                let rowsData = '';
+                for (let i = 0; i < result.data.length; i++) {
+                    let city = result.data[i];
+                    var actionButton = '';
+                    if (result.admin) {
+                        actionButton =
+                            '<td>' +
+                            '<a href="/city/edit?id=' + city.id + '"><img title="Edit" src="/images/edit.png"/></a>' +
+                            '<a data-id="city_' + city.id + '" href="city.html"><img title="Delete" src="/images/delete.png"/></a>' +
+                            '</td>'
+                    }
+                    rowsData += '<tr><td>' + city.id + '</td>' +
+                        '<td>' + city.ruCityName + '</td>' +
+                        '<td>' + city.enCityName + '</td>' +
+                        '<td>' + city.population + '</td>' +
+                        actionButton +
+                        '</tr>';
+                }
+                let cityDataElement = $('#cityData');
+                cityDataElement.html(rowsData);
+                if (result.admin) {
+                    $('a[data-id^=city_]').one('click', function (event) {
+                        if (confirm('Are you sure to delete this city?')) {
+                            let cityId = $(this).attr('data-id').replace('city_', '');
+                            $.ajax({
+                                url: '/api/cities/' + cityId,
+                                type: 'DELETE',
+                                success: function () {
+                                    location.href = '/cities';
+                                },
+                                error: function (jqXHR, exception) {
+                                    if (jqXHR.status === 403) {
+                                        alert('You have no right');
+                                    }
+                                }
+                            });
                         }
+                        event.preventDefault();
                     });
                 }
-                event.preventDefault();
+
+                $('#navigation').html(
+                    (result.hasPrevious ? ('<a href="javascript:fillData(' + (result.currentPage - 1) + ')">' +
+                        '<img title="Previous page" src="/images/previous.png"/>' +
+                        '</a>') : '') +
+                    'Current page <span>' + (result.currentPage + 1) + '</span> of <span>' + result.totalPage + '</span>' +
+                    (result.hasNext ?  ('<a href="javascript:fillData(' + (result.currentPage + 1) + ')">' +
+                        '<img title="Next page" src="/images/next.png"/>' +
+                        '</a>') : ''));
             });
-        });
+        }
+
     </script>
 </head>
-
-
 <body>
+<div class="loginPanel" sec:authorize="isAuthenticated()">
+    <span class="loginName" sec:authentication="name"></span>
+    <div class="logoutButton">
+        <a th:href="@{/logout}"><img title="Logout" th:src="@{/images/exit.png}"/></a>
+    </div>
+</div>
 <p><strong><span th:text="#{cities}">:</span></strong></p>
 
-<div id="navigation">
-    <a th:if="${cities.hasPrevious}" th:href="@{/cities(page=${cities.currentPage-1})}" href="cities.html"><img
-            alt="Previous page" th:src="@{/images/previous.png}"/></a>
-    <span th:text="#{currentPage}"></span> <span th:text="${cities.currentPage + 1}">0</span> <span th:text="#{of}"></span> <span th:text="${cities.totalPage}">2</span>
-    <a th:if="${cities.hasNext}" th:href="@{/cities(page=${cities.currentPage + 1})}" href="cities.html"><img
-            alt="Next page" th:src="@{/images/next.png}"/></a>
-</div>
+<div id="navigation"></div>
 <table class="cities">
     <thead>
     <tr>
@@ -44,25 +85,10 @@
         <th><span th:text="#{engName}"></span></th>
         <th><span th:text="#{population}"></span></th>
         <th><span th:text="#{regionId}"></span></th>
-        <th><span th:text="#{actions}"></span></th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')"><span th:text="#{actions}"></span></th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="city: ${cities.data}">
-        <td th:text="${city.id}">art</td>
-        <td th:text="${city.ruCityName}">Art</td>
-        <td th:text="${city.enCityName}">Art</td>
-        <td th:text="${city.population}">Art</td>
-        <td th:text="${city.region.id}">Art</td>
-        <td>
-            <a th:href="@{/city/edit(id=${city.id})}" href="city.html"><img alt="Edit"
-                                                                            th:src="@{/images/edit.png}"/></a>
-            <a id="delete-handler" th:id="${city.idStr}" th:name="${city.idStr}" href="cit.html"><img
-                    alt="Delete" th:src="@{/images/delete.png}"/></a>
-        </td>
-    </tr>
-
-    </tbody>
+    <tbody id="cityData"/>
 </table>
 <div id="toolbar">
     <a th:href="@{/}" href="../index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.levelup.homework9.model.User;
-import ru.levelup.homework9.model.type.Status;
+import ru.levelup.homework10.model.User;
+import ru.levelup.homework10.model.type.Status;
 
 import java.util.Collection;
 import java.util.Collections;

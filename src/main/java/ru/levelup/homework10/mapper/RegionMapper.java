@@ -2,8 +2,8 @@ package ru.levelup.homework10.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.levelup.homework9.dto.RegionDto;
-import ru.levelup.homework9.model.Region;
+import ru.levelup.homework10.dto.RegionDto;
+import ru.levelup.homework10.model.Region;
 
 import java.util.List;
 import java.util.Optional;

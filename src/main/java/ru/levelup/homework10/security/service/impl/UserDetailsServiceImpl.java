@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.levelup.homework9.repository.UserRepository;
-import ru.levelup.homework9.security.UserPrincipal;
+import ru.levelup.homework10.repository.UserRepository;
+import ru.levelup.homework10.security.UserPrincipal;
 
 @Service
 @RequiredArgsConstructor

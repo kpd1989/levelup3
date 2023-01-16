@@ -1,64 +1,93 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>List of all regions</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function () {
-            $("a[id^='region']").click(function (event) {
-                if (confirm('Are you sure to delete this region?')) {
-                    let regionId = $(this).attr('name').replace('region_', '');
-                    $.ajax({
-                        url: '/region/' + regionId,
-                        type: 'DELETE',
-                        success: function (result) {
-                            if (result.success) {
-                                location.href = '/regions';
-                            }
+            fillData();
+        });
+
+        function fillData(page) {
+            $.get('/api/regions' + (page ? '?page=' + page : ''), function (result) {
+                let rowsData = '';
+                for (let i = 0; i < result.data.length; i++) {
+                    let region = result.data[i];
+                    var actionButton = '';
+                    if (result.admin) {
+                        actionButton =
+                            '<td>' +
+                            '<a href="/region/edit?id=' + region.id + '"><img title="Edit" src="/images/edit.png"/></a>' +
+                            '<a data-id="region_' + region.id + '" href="region.html"><img title="Delete" src="/images/delete.png"/></a>' +
+                            '</td>'
+                    }
+                    rowsData += '<tr><td>' + region.id + '</td>' +
+                        '<td>' + region.name + '</td>' +
+                        actionButton +
+                        '</tr>';
+                }
+                let regionDataElement = $('#regionData');
+                regionDataElement.html(rowsData);
+                if (result.admin) {
+                    $('a[data-id^=region_]').one('click', function (event) {
+                        if (confirm('Are you sure to delete this region?')) {
+                            let regionId = $(this).attr('data-id').replace('region_', '');
+                            $.ajax({
+                                url: '/api/regions/' + regionId,
+                                type: 'DELETE',
+                                success: function () {
+                                    location.href = '/regions';
+                                },
+                                error: function (jqXHR, exception) {
+                                    if (jqXHR.status === 403) {
+                                        alert('You have no right');
+                                    }
+                                }
+                            });
                         }
+                        event.preventDefault();
                     });
                 }
-                event.preventDefault();
+
+                $('#navigation').html(
+                    (result.hasPrevious ? ('<a href="javascript:fillData(' + (result.currentPage - 1) + ')">' +
+                        '<img title="Previous page" src="/images/previous.png"/>' +
+                        '</a>') : '') +
+                    'Current page <span>' + (result.currentPage + 1) + '</span> of <span>' + result.totalPage + '</span>' +
+                    (result.hasNext ?  ('<a href="javascript:fillData(' + (result.currentPage + 1) + ')">' +
+                        '<img title="Next page" src="/images/next.png"/>' +
+                        '</a>') : ''));
             });
-        });
+        }
+
     </script>
 </head>
 <body>
+<div class="loginPanel" sec:authorize="isAuthenticated()">
+    <span class="loginName" sec:authentication="name"></span>
+    <div class="logoutButton">
+        <a th:href="@{/logout}"><img title="Logout" th:src="@{/images/exit.png}"/></a>
+    </div>
+</div>
 <p><strong><span th:text="#{regions}"></span>:</strong></p>
 
-<div id="navigation">
-    <a th:if="${regions.hasPrevious}" th:href="@{/regions(page=${regions.currentPage-1})}" href="regions.html"><img
-            alt="Previous page" th:src="@{/images/previous.png}"/></a>
-    <span th:text="#{currentPage}"></span> <span th:text="${regions.currentPage + 1}">0</span> <span th:text="#{of}"></span> <span th:text="${regions.totalPage}">2</span>
-    <a th:if="${regions.hasNext}" th:href="@{/regions(page=${regions.currentPage + 1})}" href="regions.html"><img
-            alt="Next page" th:src="@{/images/next.png}"/></a>
-</div>
+<div id="navigation"></div>
 <table class="regions">
     <thead>
     <tr>
         <th><span th:text="#{id}"></span></th>
         <th><span th:text="#{name}"></span></th>
-        <th><span th:text="#{actions}"></span></th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')"><span th:text="#{actions}"></span></th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="region: ${regions.data}">
-        <td th:text="${region.id}">art</td>
-        <td th:text="${region.name}">Art</td>
-        <td>
-            <a th:href="@{/region/edit(id=${region.id})}" href="region.html"><img alt="Edit"
-                                                                                   th:src="@{/images/edit.png}"/></a>
-            <a id="delete-handler" th:id="${region.idStr}" th:name="${region.idStr}" href="reg.html"><img
-                    alt="Delete" th:src="@{/images/delete.png}"/></a>
-        </td>
-    </tr>
-
-    </tbody>
+    <tbody id="regionData"/>
 </table>
 <div id="toolbar">
     <a th:href="@{/}" href="../index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
-    <a th:href="@{/region/add}" href="region.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/region/add}" href="region.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
 </div>
 </body>
 <style>

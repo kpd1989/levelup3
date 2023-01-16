@@ -3,7 +3,7 @@ package ru.levelup.homework10.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.levelup.homework9.model.type.Status;
+import ru.levelup.homework10.model.type.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

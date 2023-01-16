@@ -1,8 +1,8 @@
 package ru.levelup.homework10.service;
 
 import org.springframework.data.domain.Pageable;
-import ru.levelup.homework9.dto.RegionDto;
-import ru.levelup.homework9.dto.RegionPageDto;
+import ru.levelup.homework10.dto.RegionDto;
+import ru.levelup.homework10.dto.RegionPageDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;

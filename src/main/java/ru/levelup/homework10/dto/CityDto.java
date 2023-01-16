@@ -1,7 +1,6 @@
 package ru.levelup.homework10.dto;
 
 import lombok.Data;
-import ru.levelup.homework9.dto.RegionDto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

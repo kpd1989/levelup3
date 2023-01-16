@@ -2,7 +2,7 @@ package ru.levelup.homework10.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.levelup.homework9.model.User;
+import ru.levelup.homework10.model.User;
 
 import java.util.Optional;
 

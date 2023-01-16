@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>Add/Edit/View region</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
 </head>
 <body>
-<form id="add-form" th:action="@{/region/save}" th:if="${region == null}" method="post" action="region.html">
+<div class="loginPanel" sec:authorize="isAuthenticated()">
+    <span class="loginName" sec:authentication="name"></span>
+    <div class="logoutButton">
+        <a th:href="@{/logout}"><img title="Logout" th:src="@{/images/exit.png}"/></a>
+    </div>
+</div>
+<form id="add-form" sec:authorize="hasAuthority('ADMIN')" th:action="@{/region/save}" th:if="${region == null}" method="post" action="region.html">
     <p><strong><span th:text="#{addNewRegion}"></span>:</strong></p>
 
     <div class="row">
@@ -23,7 +31,7 @@
         <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
     </div>
 </form>
-<form id="edit-form" th:action="@{/region/save(id=${region.id})}" th:unless="${region == null}" method="post"
+<form id="edit-form" sec:authorize="hasAuthority('ADMIN')" th:action="@{/region/save(id=${region.id})}" th:unless="${region == null}" method="post"
       action="region.html" th:object="${region}">
     <p><strong><span th:text="#{regionInfo}"></span>:</strong></p>
 
