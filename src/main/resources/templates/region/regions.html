@@ -80,7 +80,7 @@
     <tr>
         <th><span th:text="#{id}"></span></th>
         <th><span th:text="#{name}"></span></th>
-        <th sec:authorize="hasRole('ROLE_ADMIN')"><span th:text="#{actions}"></span></th>
+        <th sec:authorize="hasAuthority('ADMIN')"><span th:text="#{actions}"></span></th>
     </tr>
     </thead>
     <tbody id="regionData"/>

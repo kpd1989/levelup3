@@ -28,6 +28,7 @@
                         '<td>' + city.ruCityName + '</td>' +
                         '<td>' + city.enCityName + '</td>' +
                         '<td>' + city.population + '</td>' +
+                        '<td>' + city.region.id + '</td>' +
                         actionButton +
                         '</tr>';
                 }
@@ -85,14 +86,14 @@
         <th><span th:text="#{engName}"></span></th>
         <th><span th:text="#{population}"></span></th>
         <th><span th:text="#{regionId}"></span></th>
-        <th sec:authorize="hasRole('ROLE_ADMIN')"><span th:text="#{actions}"></span></th>
+        <th sec:authorize="hasAuthority('ADMIN')"><span th:text="#{actions}"></span></th>
     </tr>
     </thead>
     <tbody id="cityData"/>
 </table>
 <div id="toolbar">
     <a th:href="@{/}" href="../index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
-    <a th:href="@{/city/add}" href="city.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/city/add}" href="city.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
 </div>
 </body>
 <style>
