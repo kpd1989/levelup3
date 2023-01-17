@@ -19,3 +19,7 @@ spring:
 application:
   cash:
     enable: 'true'
+
+#server:
+#  servlet:
+#    context-path: /level
