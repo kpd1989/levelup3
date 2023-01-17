@@ -15,8 +15,6 @@ import ru.levelup.homework10.repository.RegionRepository;
 import ru.levelup.homework10.security.Authorities;
 import ru.levelup.homework10.service.CityService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,20 +47,20 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CityDto> getById(@NotEmpty Integer cityId) {
+    public Optional<CityDto> getById(Integer cityId) {
         return cityMapper.toOptionalDto(cityRepository.findById(cityId));
     }
 
     @Override
     @Transactional
-    public CityDto save(@Valid CityDto city) {
+    public CityDto save(CityDto city) {
         regionMapper.toDto(regionRepository.save(regionMapper.toEntity(city.getRegion())));
         return cityMapper.toDto(cityRepository.save(cityMapper.toEntity(city)));
     }
 
     @Override
     @Transactional
-    public void deleteById(@NotEmpty Integer cityId) {
+    public void deleteById(Integer cityId) {
         cityRepository.deleteById(cityId);
     }
 }

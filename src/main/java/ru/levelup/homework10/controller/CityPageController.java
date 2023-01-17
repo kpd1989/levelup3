@@ -21,7 +21,7 @@ public class CityPageController {
     }
 
     @GetMapping("/city/add")
-    public String newCity(Model model) {
+    public String newCity() {
         return "city/city";
     }
 

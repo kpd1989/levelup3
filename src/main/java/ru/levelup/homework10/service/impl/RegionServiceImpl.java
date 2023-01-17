@@ -13,8 +13,6 @@ import ru.levelup.homework10.repository.RegionRepository;
 import ru.levelup.homework10.security.Authorities;
 import ru.levelup.homework10.service.RegionService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,19 +43,19 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<RegionDto> getById(@NotEmpty Integer regionId) {
+    public Optional<RegionDto> getById(Integer regionId) {
         return regionMapper.toOptionalDto(regionRepository.findById(regionId));
     }
 
     @Override
     @Transactional
-    public RegionDto save(@Valid RegionDto region) {
+    public RegionDto save(RegionDto region) {
         return regionMapper.toDto(regionRepository.save(regionMapper.toEntity(region)));
     }
 
     @Override
     @Transactional
-    public void deleteById(@NotEmpty Integer regionId) {
+    public void deleteById(Integer regionId) {
         regionRepository.deleteById(regionId);
     }
 }

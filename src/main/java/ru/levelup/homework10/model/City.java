@@ -3,7 +3,6 @@ package ru.levelup.homework10.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.levelup.homework10.model.Region;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

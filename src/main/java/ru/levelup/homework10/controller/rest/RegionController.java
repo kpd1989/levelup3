@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.levelup.homework10.dto.CityPageDto;
 import ru.levelup.homework10.dto.RegionPageDto;
 import ru.levelup.homework10.security.Authorities;
 import ru.levelup.homework10.service.RegionService;
@@ -16,7 +15,6 @@ import ru.levelup.homework10.service.RegionService;
 public class RegionController {
 
     private final RegionService regionService;
-
     private final Authorities authorities;
 
     @GetMapping

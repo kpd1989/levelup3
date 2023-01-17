@@ -2,7 +2,6 @@ package ru.levelup.homework10.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.levelup.homework10.dto.RegionDto;
 
 import java.util.List;
 

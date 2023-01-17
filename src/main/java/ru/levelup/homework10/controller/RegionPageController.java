@@ -1,18 +1,13 @@
 package ru.levelup.homework10.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.levelup.homework10.dto.RegionDto;
-import ru.levelup.homework10.dto.RegionPageDto;
 import ru.levelup.homework10.service.RegionService;
-
-import javax.validation.constraints.Positive;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +21,7 @@ public class RegionPageController {
     }
 
     @GetMapping("/region/add")
-    public String newRegion(Model model) {
+    public String newRegion() {
         return "region/region";
     }
 

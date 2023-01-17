@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/cities", "/regions",
                         "/api/**").authenticated()
                 .antMatchers("/city/**", "/api/cities/*", "/region/**", "/api/regions/*")
-                    .hasAuthority(ADMIN)
+                .hasAuthority(ADMIN)
                 .and()
                 .formLogin()
                 .and()
