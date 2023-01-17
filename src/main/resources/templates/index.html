@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        background: url("https://catherineasquithgallery.com/uploads/posts/2021-03/1614593704_60-p-kniga-na-belom-fone-kartinki-98.png") no-repeat;
+        background-size: 30% 200%;
+    }
+</style>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Main page</title>
+</head>
+<body>
+<p><strong><span th:text="#{greeting}"></span></strong></p>
+
+<ul>
+    <li><a th:href="@{/cities}" href="/cities.html"><span th:text="#{cities}"></span></a></li>
+</ul>
+
+<ul>
+    <li><a th:href="@{/regions}" href="/regions.html"><span th:text="#{regions}"></span></a></li>
+</ul>
+
+</body>
+</html>

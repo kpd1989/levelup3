@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all cities</title>
+    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("a[id^='city']").click(function (event) {
+                if (confirm('Are you sure to delete this city?')) {
+                    let cityId = $(this).attr('name').replace('city_', '');
+                    $.ajax({
+                        url: '/city/' + cityId,
+                        type: 'DELETE',
+                        success: function (result) {
+                            if (result.success) {
+                                location.href = '/cities';
+                            }
+                        }
+                    });
+                }
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+<p><strong><span th:text="#{cities}">:</span></strong></p>
+
+<div id="navigation">
+    <a th:if="${cities.hasPrevious}" th:href="@{/cities(page=${cities.currentPage-1})}" href="cities.html"><img
+            alt="Previous page" th:src="@{/images/previous.png}"/></a>
+    <span th:text="#{currentPage}"></span> <span th:text="${cities.currentPage + 1}">0</span> <span th:text="#{of}"></span> <span th:text="${cities.totalPage}">2</span>
+    <a th:if="${cities.hasNext}" th:href="@{/cities(page=${cities.currentPage + 1})}" href="cities.html"><img
+            alt="Next page" th:src="@{/images/next.png}"/></a>
+</div>
+<table class="cities">
+    <thead>
+    <tr>
+        <th><span th:text="#{id}"></span></th>
+        <th><span th:text="#{ruName}"></span></th>
+        <th><span th:text="#{engName}"></span></th>
+        <th><span th:text="#{population}"></span></th>
+        <th><span th:text="#{regionId}"></span></th>
+        <th><span th:text="#{actions}"></span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="city: ${cities.data}">
+        <td th:text="${city.id}">art</td>
+        <td th:text="${city.ruCityName}">Art</td>
+        <td th:text="${city.enCityName}">Art</td>
+        <td th:text="${city.population}">Art</td>
+        <td th:text="${city.region.id}">Art</td>
+        <td>
+            <a th:href="@{/city/edit(id=${city.id})}" href="city.html"><img alt="Edit"
+                                                                            th:src="@{/images/edit.png}"/></a>
+            <a id="delete-handler" th:id="${city.idStr}" th:name="${city.idStr}" href="cit.html"><img
+                    alt="Delete" th:src="@{/images/delete.png}"/></a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<div id="toolbar">
+    <a th:href="@{/}" href="../index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+    <a th:href="@{/city/add}" href="city.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
+</div>
+</body>
+<style>
+    body {
+        background: url("https://www.syktyvdincbs.ru/content/152/KNIGA.png") no-repeat;
+        background-size: 36% 40%;
+        background-position-y: 240px;
+    }
+</style>
+</html>

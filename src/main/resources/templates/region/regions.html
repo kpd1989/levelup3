@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all regions</title>
+    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("a[id^='region']").click(function (event) {
+                if (confirm('Are you sure to delete this region?')) {
+                    let regionId = $(this).attr('name').replace('region_', '');
+                    $.ajax({
+                        url: '/region/' + regionId,
+                        type: 'DELETE',
+                        success: function (result) {
+                            if (result.success) {
+                                location.href = '/regions';
+                            }
+                        }
+                    });
+                }
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body>
+<p><strong><span th:text="#{regions}"></span>:</strong></p>
+
+<div id="navigation">
+    <a th:if="${regions.hasPrevious}" th:href="@{/regions(page=${regions.currentPage-1})}" href="regions.html"><img
+            alt="Previous page" th:src="@{/images/previous.png}"/></a>
+    <span th:text="#{currentPage}"></span> <span th:text="${regions.currentPage + 1}">0</span> <span th:text="#{of}"></span> <span th:text="${regions.totalPage}">2</span>
+    <a th:if="${regions.hasNext}" th:href="@{/regions(page=${regions.currentPage + 1})}" href="regions.html"><img
+            alt="Next page" th:src="@{/images/next.png}"/></a>
+</div>
+<table class="regions">
+    <thead>
+    <tr>
+        <th><span th:text="#{id}"></span></th>
+        <th><span th:text="#{name}"></span></th>
+        <th><span th:text="#{actions}"></span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="region: ${regions.data}">
+        <td th:text="${region.id}">art</td>
+        <td th:text="${region.name}">Art</td>
+        <td>
+            <a th:href="@{/region/edit(id=${region.id})}" href="region.html"><img alt="Edit"
+                                                                                   th:src="@{/images/edit.png}"/></a>
+            <a id="delete-handler" th:id="${region.idStr}" th:name="${region.idStr}" href="reg.html"><img
+                    alt="Delete" th:src="@{/images/delete.png}"/></a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<div id="toolbar">
+    <a th:href="@{/}" href="../index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+    <a th:href="@{/region/add}" href="region.html"><img alt="Add" th:src="@{/images/add.png}"/></a>
+</div>
+</body>
+<style>
+    body {
+        background: url("https://www.syktyvdincbs.ru/content/152/KNIGA.png") no-repeat;
+        background-size: 36% 40%;
+        background-position-y: 240px;
+    }
+</style>
+</html>

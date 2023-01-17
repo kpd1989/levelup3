@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add/Edit/View region</title>
+</head>
+<body>
+<form id="add-form" th:action="@{/region/save}" th:if="${region == null}" method="post" action="region.html">
+    <p><strong><span th:text="#{addNewRegion}"></span>:</strong></p>
+
+    <div class="row">
+        <label for="id-input"><span th:text="#{id}"></span>:</label>
+        <input id="id-input" name="id" type="text" required="required" maxlength="3"/>
+    </div>
+
+    <div class="row">
+        <label for="name-input"><span th:text="#{name}"></span>:</label>
+        <input id="name-input" name="name" type="text" required="required" maxlength="50" />
+    </div>
+
+    <div class="row">
+        <a th:href="@{/regions}" href="regions.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
+    </div>
+</form>
+<form id="edit-form" th:action="@{/region/save(id=${region.id})}" th:unless="${region == null}" method="post"
+      action="region.html" th:object="${region}">
+    <p><strong><span th:text="#{regionInfo}"></span>:</strong></p>
+
+    <div class="row">
+        <label for="id-edit-input"><span th:text="#{id}"></span>:</label>
+        <input id="id-edit-input" type="text" th:value="*{id}" readonly="readonly" value="1"/>
+    </div>
+
+    <div class="row">
+        <label for="name-edit-input"><span th:text="#{name}"></span>:</label>
+        <input id="name-edit-input" name="name" type="text" th:value="*{name}" required="required" maxlength="50" value="Art"/>
+    </div>
+
+    <div class="row">
+        <a th:href="@{/regions}" href="regions.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+        <button type="submit"><img alt="Save" th:src="@{/images/save.png}"/></button>
+    </div>
+</form>
+</body>
+</html>
