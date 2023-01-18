@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>Add/Edit/View city</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
 </head>
+<div class="loginPanel" sec:authorize="isAuthenticated()">
+    <span class="loginName" sec:authentication="name"></span>
+    <div class="logoutButton">
+        <a th:href="@{/logout}"><img title="Logout" th:src="@{/images/exit.png}"/></a>
+    </div>
+</div>
 <body>
-<form id="add-form" th:action="@{/city/save}" th:if="${city == null}" method="post" action="city.html">
+<form id="add-form" sec:authorize="hasAuthority('ADMIN')" th:action="@{/city/save}" th:if="${city == null}" method="post" action="city.html">
     <p><strong><span th:text="#{addNewCity}"></span>:</strong></p>
 
     <div class="row">
@@ -44,7 +52,7 @@
     </div>
 </form>
 
-<form id="edit-form" th:action="@{/city/save(id=${city.id})}" th:unless="${city == null}" method="post"
+<form id="edit-form" sec:authorize="hasAuthority('ADMIN')" th:action="@{/city/save(id=${city.id})}" th:unless="${city == null}" method="post"
       action="city.html" th:object="${city}">
     <p><strong><span th:text="#{cityInfo}"></span>:</strong></p>
 
