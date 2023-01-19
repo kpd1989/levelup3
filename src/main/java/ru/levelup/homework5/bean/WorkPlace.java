@@ -1,7 +1,6 @@
 package ru.levelup.homework5.bean;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.levelup.homework5.KeypadReader;
 import ru.levelup.homework5.StorageSystem;
