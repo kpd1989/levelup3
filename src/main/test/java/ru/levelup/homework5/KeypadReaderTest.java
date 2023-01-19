@@ -14,8 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class KeypadReaderTest {
 
 
-        static KeypadReader keypadReader = new KeypadReader();
-
+    static KeypadReader keypadReader = new KeypadReader();
 
 
     @Test
@@ -44,9 +43,5 @@ public class KeypadReaderTest {
         assertEquals(1, keypadReader.value);
 
 
-
-
     }
-
-
 }
